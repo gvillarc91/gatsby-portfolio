@@ -1,7 +1,13 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const Builds = require("./builds") // eslint-disable-line
 
-// You can delete this file if you're not using it
+exports.createPages = async ({ graphql, actions: { createPage } }) => {
+  const queryIndex = await graphql(Builds.index.query);
+
+  createPage({
+    path: Builds.index.path,
+    component: Builds.index.component,
+    context: {
+      data: queryIndex.data
+    }
+  });
+}
